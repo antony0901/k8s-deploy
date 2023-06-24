@@ -44,7 +44,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: test.api.simplevrithin.com
+    - host: test.simplevrithin.com
       http:
         paths:
           - path: /
