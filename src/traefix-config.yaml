@@ -13,6 +13,8 @@ spec:
     ports:
       traefik:
         expose: true
+    dasboard:
+      enable: true
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
