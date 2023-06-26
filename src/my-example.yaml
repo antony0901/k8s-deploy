@@ -40,14 +40,15 @@ metadata:
   name: test-traefik-ingress
   namespace: test
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: kube-system-services-strip@kubernetescrd
+    kubernetes.io/ingress.class: "traefik"
+    # traefik.ingress.kubernetes.io/router.middlewares: kube-system-services-strip@kubernetescrd
 spec:
   rules:
     - host: test.simplevrithin.com
       http:
         paths:
           - path: /
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: test-nginx-service
