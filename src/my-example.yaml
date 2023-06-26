@@ -40,9 +40,8 @@ metadata:
   name: test-nginx-ingress
   namespace: test
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    traefik.ingress.kubernetes.io/router.middlewares: kube-system-services-strip@kubernetescrd
 spec:
-  ingressClassName: nginx
   rules:
     - host: test.simplevrithin.com
       http:
