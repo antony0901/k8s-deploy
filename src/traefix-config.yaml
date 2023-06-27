@@ -13,7 +13,7 @@ spec:
     ports:
       traefik:
         expose: true
-    dasboard:
+    dashboard:
       enable: true
     providers:
       kubernetesCRD:
