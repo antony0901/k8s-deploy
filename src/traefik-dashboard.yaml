@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - internal
   routes:
-  - match: Host(`traefikee.domain.org`)
+  - match: Host(`traefik.simplevrithin.com`)
     kind: Rule
     middlewares:
     - name: auth

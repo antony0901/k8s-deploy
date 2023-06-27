@@ -14,7 +14,7 @@ spec:
       traefik:
         expose: true
     dashboard:
-      enable: true
+      enabled: true
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
