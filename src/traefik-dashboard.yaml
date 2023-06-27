@@ -1,38 +1,26 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: traefik-dashboard
-  namespace: kube-system
-  labels:
-    app.kubernetes.io/instance: traefik
-    app.kubernetes.io/name: traefik-dashboard
-spec:
-  type: ClusterIP
-  ports:
-  - name: traefik
-    port: 9000
-    targetPort: traefik
-    protocol: TCP
-  selector:
-    app.kubernetes.io/instance: traefik-kube-system
-    app.kubernetes.io/name: traefik
+# important: Don't forget to expose the port 8888 of your proxies through
+# a kubernetes service to make the API is reachable from outside.
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: traefik-ingress
-  namespace: kube-system
-  annotations:
-    kubernetes.io/ingress.class: traefik
+  name: api
 spec:
-  rules:
-    - host: dashboard-k3s.simplevrithin.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: traefik-dashboard
-                port:
-                  number: 9000
+  entryPoints:
+    - internal
+  routes:
+  - match: Host(`traefikee.domain.org`)
+    kind: Rule
+    middlewares:
+    - name: auth
+    services:
+    - name: api@internal
+      kind: TraefikService
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: auth
+spec:
+  basicAuth:
+    secret: secretName # secrets where is stored the basic auth credentials.
